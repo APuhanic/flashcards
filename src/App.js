@@ -26,7 +26,9 @@ function App() {
           <Navbar />
           <div className='content'>
             <Routes>
-              <Route exact path='/' element={<Profile />} />
+              <Route exact path='/' element={<PrivateRoute />}>
+                <Route exact path='/' element={<Profile />} />
+              </Route>
 
               <Route path='/Login' element={
                 <Container className='d-flex justify-content-center'
