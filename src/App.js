@@ -26,7 +26,6 @@ function App() {
           <Navbar />
           <div className='content'>
             <Routes>
-              e
               <Route exact path='/' element={<Profile />} />
 
               <Route path='/Login' element={
