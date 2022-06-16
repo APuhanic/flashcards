@@ -43,6 +43,11 @@ function App() {
               <Route path='/TodoPage' element={<TodoPage />}></Route>
               <Route path='/Home' element={<Home />}></Route>
               <Route path='/Profile' element={<Profile />}></Route>
+
+              <Route exact path='/Profile' element={<PrivateRoute />}>
+                <Route exact path='/Profile' element={<Profile />} />
+              </Route>
+
               <Route path='/ForgotPassword' element={<ForgotPassword />}></Route>
               <Route path='/SignUp' element={
                 <Container className='d-flex justify-content-center'

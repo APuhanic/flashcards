@@ -2,6 +2,8 @@ import React, { useRef, useState } from 'react';
 import { useAuth } from '../contexts/authContext';
 import { Button, Form, Card, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
+
 
 export default function Login() {
   const emailRef = useRef()
@@ -18,7 +20,7 @@ export default function Login() {
       setError("")
       setLoading(true)
       await login(emailRef.current.value, passwordRef.current.value)
-      navigate("/")
+      navigate("/Profile")
 
     } catch (error) {
       setError('Failed to log in.')
@@ -44,6 +46,11 @@ export default function Login() {
             </Form.Group>
 
             <Button disabled={loading} className="w-100 mt-3" type="submit">Log In</Button>
+            <div className="w-100 text-center mt-3">
+              <Link to="/ForgotPassword">Forgot Password?</Link>
+            </div>
+
+
           </Form>
         </Card.Body>
       </Card>

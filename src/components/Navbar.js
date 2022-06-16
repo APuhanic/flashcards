@@ -7,10 +7,11 @@ export default function Navbar() {
         <div className='links'>
             <a href='/'>Home</a>
 
+            <a href='/Profile' className='Profile'>Profile</a>
+
             <a href='/TodoPage' className='TodoPage'>TodoPage</a>
 
             <a href='/Login' className='LogInButton'>Log In</a>
-
 
 
         </div>
