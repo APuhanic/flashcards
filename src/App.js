@@ -13,6 +13,7 @@ import { Container } from 'react-bootstrap';
 import { AuthProvider } from './contexts/authContext';
 import PrivateRoute from './components/PrivateRoute';
 import Profile from './pages/Profile';
+import ForgotPassword from './pages/ForgotPassword';
 
 const LOCAL_STORAGE_KEY = 'todoApp.todos'
 
@@ -42,6 +43,7 @@ function App() {
               <Route path='/TodoPage' element={<TodoPage />}></Route>
               <Route path='/Home' element={<Home />}></Route>
               <Route path='/Profile' element={<Profile />}></Route>
+              <Route path='/ForgotPassword' element={<ForgotPassword />}></Route>
               <Route path='/SignUp' element={
                 <Container className='d-flex justify-content-center'
                 >
