@@ -14,6 +14,9 @@ import { AuthProvider } from './contexts/authContext';
 import PrivateRoute from './components/PrivateRoute';
 import Profile from './pages/Profile';
 import ForgotPassword from './pages/ForgotPassword';
+import Decks from './pages/Decks'
+import Classes from './pages/Classes';
+import Deck from './components/Deck';
 
 const LOCAL_STORAGE_KEY = 'todoApp.todos'
 
@@ -44,9 +47,12 @@ function App() {
               <Route path='/Home' element={<Home />}></Route>
               <Route path='/Profile' element={<Profile />}></Route>
 
-              <Route exact path='/Profile' element={<PrivateRoute />}>
-                <Route exact path='/Profile' element={<Profile />} />
-              </Route>
+              <Route exact path='/Profile' element={<Profile />} />
+
+              <Route  path='/Classes' element={<Classes />} />
+              <Route  path='/Decks' element={<Decks />} />
+              <Route  path='/Deck' element={<Deck />} />
+
 
               <Route path='/ForgotPassword' element={<ForgotPassword />}></Route>
               <Route path='/SignUp' element={

@@ -4,12 +4,15 @@ import { Card, Button, Alert } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 
 import { useAuth } from '../contexts/authContext'
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 
 export default function Profile() {
     const [error, setError] = useState("")
     const { currentUser, logout } = useAuth()
     const navigate = useNavigate();
+    const auth = getAuth();
+
 
     async function handleLogOut() {
         setError("")
@@ -22,6 +25,8 @@ export default function Profile() {
         }
     }
 
+    const user = auth.currentUser;
+    console.log(user.uid)
     return (
         <>
             <Card>

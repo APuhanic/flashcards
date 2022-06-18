@@ -3,6 +3,8 @@ import { useAuth } from '../contexts/authContext';
 import { Button, Form, Card, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom"
 import { Link } from "react-router-dom"
+import { getDatabase } from "firebase/database";
+
 
 
 export default function Login() {
@@ -12,6 +14,8 @@ export default function Login() {
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
+  const db = getDatabase();
+
 
 
   async function handleSubmit(e) {
@@ -20,7 +24,9 @@ export default function Login() {
       setError("")
       setLoading(true)
       await login(emailRef.current.value, passwordRef.current.value)
+
       navigate("/Profile")
+
 
     } catch (error) {
       setError('Failed to log in.')
@@ -28,6 +34,8 @@ export default function Login() {
     }
     setLoading(false)
   }
+
+  
 
   return (
     <>
@@ -47,14 +55,14 @@ export default function Login() {
 
             <Button disabled={loading} className="w-100 mt-3" type="submit">Log In</Button>
             <div className="w-100 text-center mt-3">
-              <Link to="/ForgotPassword">Forgot Password?</Link>
+              <Link to="/ForgotPassword">Forgot Password? </Link>
             </div>
 
 
           </Form>
         </Card.Body>
       </Card>
-      <div className="w-100 text-center mt-2">Need an account? Sign up</div>
+      <div className="w-100 text-center mt-2">Need an account? <Link to='/SignUp'> Sign up</Link></div>
     </>
   )
 }

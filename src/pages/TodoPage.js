@@ -1,10 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import TodoList from '../TodoList';
 import { v4 as uuidv4 } from 'uuid'
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from '../components/Navbar';
-import Home from './Home';
-import Login from './Login';
+
 
 const LOCAL_STORAGE_KEY = 'todoApp.todos'
 
@@ -24,12 +21,7 @@ export default function TodoPage() {
     console.log(LOCAL_STORAGE_KEY)
   }, [todos])
 
-  function toggleTodo(id) {
-    const newTodos = [...todos]
-    const todo = newTodos.find(todo => todo.id === id)
-    todo.complete = !todo.complete
-    setTodos(newTodos)
-  }
+
 
   function handleAddTodo(e) {
     const name = todoNameRef.current.value
@@ -48,7 +40,7 @@ export default function TodoPage() {
   return (
     <div>
       <p>asdfasdfas</p>
-    {todos && <TodoList todos={todos} toggleTodo={toggleTodo} />}
+    {todos && <TodoList todos={todos}  />}
     <input ref={todoNameRef} type="text" onKeyDown={(e) => e.key === 'Enter' && handleAddTodo()} />
     <button onClick={handleAddTodo} >Add Todo</button>
     <button onClick={handleClearTodos}>Clear Todo</button>
