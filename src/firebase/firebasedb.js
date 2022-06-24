@@ -36,7 +36,15 @@ export async function addDeck(NewDeckName){
         })
         console.log("Document written with ID: ", docRef.id);
     }
+}
 
+export async function addCard(){
+    if(deckRef){
+        const docRef= await addDoc(deckRef, {
+            deckName: NewDeckName
+        })
+        console.log("Document written with ID: ", docRef.id);
+    }
 }
 
 

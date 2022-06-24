@@ -32,29 +32,26 @@ function App() {
               <Route exact path='/' element={<PrivateRoute />}>
                 <Route exact path='/' element={<Profile />} />
               </Route>
-              <Route path='/Login' element={
-                <Container className='d-flex justify-content-center'>
-                  <div className='w-100' style={{ maxWidth: "400px", minWidth: "150px" }}>
-                    <Login />
-                  </div>
-                </Container>
-              }>
-              </Route>
-              <Route path='/TodoPage' element={<TodoPage />}></Route>
               <Route path='/Home' element={<Home />}></Route>
               <Route path='/Profile' element={<Profile />}></Route>
-
-              <Route exact path='/Profile' element={<Profile />} />
-
+              <Route path='/Home/:deckName' element={<DeckPage />} />
               <Route path='/Classes' element={<Classes />} />
               <Route path='/DeckList' element={<DeckList />} />
               <Route path='/Deck' element={<Deck />} />
-              <Route path='/Home/:deckName' element={<DeckPage />} />
               <Route path='/ForgotPassword' element={<ForgotPassword />}></Route>
+              <Route path='/TodoPage' element={<TodoPage />}></Route>
               <Route path='/SignUp' element={
                 <Container className='d-flex justify-content-center'>
                   <div className='w-100' style={{ maxWidth: "400px", minWidth: "150px" }}>
                     <SignUp />
+                  </div>
+                </Container>
+              }>
+              </Route>
+              <Route path='/Login' element={
+                <Container className='d-flex justify-content-center'>
+                  <div className='w-100' style={{ maxWidth: "400px", minWidth: "150px" }}>
+                    <Login />
                   </div>
                 </Container>
               }>

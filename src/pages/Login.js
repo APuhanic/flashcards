@@ -26,7 +26,6 @@ export default function Login() {
       setDoc(doc(db, "users", auth.currentUser.uid), {
         email: currentUser.email
       })
-
     }
     catch (error) {
       console.log(error)

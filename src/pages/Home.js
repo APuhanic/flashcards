@@ -16,13 +16,10 @@ const db = getFirestore(app)
 
 export default function Home() {
   const [decks, setDecks] = useState([]);
-  const usersCollectionRef = collection(db, "users");
   const { currentUser } = useAuth();
   const auth = getAuth();
-  const userID = useParams();
   const navigate = useNavigate();
   const deckNameRef = useRef();
-  const [NewDeckName, setNewDeckName] = useState("");
 
   function onDeckClick(deck) {
     console.log(deck)
@@ -34,7 +31,6 @@ export default function Home() {
       setDoc(doc(db, "users", auth.currentUser.uid), {
         email: currentUser.email
       })
-
     }
     catch (error) {
       console.log(error)
@@ -49,6 +45,8 @@ export default function Home() {
     catch (error) {
       console.log(error)
     }
+    navigate(`/Home/${deckNameRef.current.value}`);
+
   }
 
   useEffect(() => {
@@ -57,27 +55,19 @@ export default function Home() {
         setDecks(res);
       })
     }
-  }, []);
+  }, [currentUser]);
 
-  useEffect(() => {
-    if (currentUser) {
-      getDeck().then((res) => {
-        setDecks(res);
-      })
-    }
-  }, [decks]);
   return (
     <>
       <Card className='d-flex w-75 justify-content-center'>
         <Card.Body>
           <Form onSubmit={HandleNewDeck} >
             <Form.Group id="deckName">
-              <Form.Control placeholder="Deck Name" ref={deckNameRef} onChange={(e) => setNewDeckName(e.target.value)} required />
+              <Form.Control placeholder="Deck Name" ref={deckNameRef}  required/>
             </Form.Group>
             <Button variant="primary" className='mt-3 mb-3' type="submit">Create Deck</Button>
           </Form>
         </Card.Body>
-
       </Card>
 
       <div className='w-75'>
