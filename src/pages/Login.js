@@ -4,6 +4,8 @@ import { Button, Form, Card, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom"
 import { Link } from "react-router-dom"
 import { getDatabase } from "firebase/database";
+import { setDoc, doc } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
 
 
 
@@ -15,8 +17,21 @@ export default function Login() {
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
   const db = getDatabase();
+  const { currentUser } = useAuth();
+  const auth = getAuth();
 
 
+  async function createUser() {
+    try {
+      setDoc(doc(db, "users", auth.currentUser.uid), {
+        email: currentUser.email
+      })
+
+    }
+    catch (error) {
+      console.log(error)
+    }
+  }
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -24,7 +39,7 @@ export default function Login() {
       setError("")
       setLoading(true)
       await login(emailRef.current.value, passwordRef.current.value)
-
+      createUser()
       navigate("/Profile")
 
 
@@ -35,7 +50,7 @@ export default function Login() {
     setLoading(false)
   }
 
-  
+
 
   return (
     <>
@@ -62,7 +77,10 @@ export default function Login() {
           </Form>
         </Card.Body>
       </Card>
-      <div className="w-100 text-center mt-2">Need an account? <Link to='/SignUp'> Sign up</Link></div>
+      <div className="w-100 text-center mt-2">
+        Need an account?
+        <Link to='/SignUp' className=''> Sign up</Link>
+      </div>
     </>
   )
 }

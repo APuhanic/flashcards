@@ -5,28 +5,38 @@ import app from "./firebase"
 
 const db = getFirestore(app)
 
-var usersRef;
+var deckRef;
 
 export function setUserDBref(userID) {
-    usersRef = collection(db, "users", userID, "decks");
-    console.log((usersRef.id))
+    deckRef = collection(db, "users", userID, "decks");
+    console.log((deckRef.id))
+    console.log((userID))
 }
 
 export function clearuserDBref() {
-    usersRef = null;
+    deckRef = null;
 }
 
-export async function getDeck(){
-    if(usersRef){
-        const docRef=doc(usersRef,"DpRwIqXgoGild0o20qSZ")
-        const snapshot=await getDoc(docRef)
-        if(snapshot.exists()){
-            console.log(snapshot)
-
-            return snapshot.data();
-        }
+export async function getDeck(deckID){
+    if(deckRef){
+        const userDecks=[]
+        const snapshot=await getDocs(deckRef)
+        snapshot.forEach((doc)=>{
+            console.log('data:', doc.data());
+            userDecks.push(doc.data())
+        })
+        return userDecks
     }
 }
 
+export async function addDeck(NewDeckName){
+    if(deckRef){
+        const docRef= await addDoc(deckRef, {
+            deckName: NewDeckName
+        })
+        console.log("Document written with ID: ", docRef.id);
+    }
+
+}
 
 

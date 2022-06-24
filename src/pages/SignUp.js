@@ -23,23 +23,18 @@ export default function SignUp() {
 
     async function handleSubmit(e) {
         e.preventDefault()
-
         if (passwordConfirmationRef.current.value !== passwordRef.current.value) {
             return setError("Passwords do not match.")
         }
-
         try {
             setError("")
             setLoading(true)
             const res = await signup(emailRef.current.value, passwordRef.current.value)
             navigate('/')
-
-
         } catch (error) {
             setError('Failed to create an account.')
             console.log(error)
         }
-
         setLoading(false)
     }
 
@@ -63,7 +58,8 @@ export default function SignUp() {
                             <Form.Label>Password confirmation</Form.Label>
                             <Form.Control type="password" ref={passwordConfirmationRef} required />
                         </Form.Group>
-                        <Button disabled={loading} className="w-100 mt-3" type="submit">Sign Up</Button>
+                        <Button disabled={loading} className="w-100 mt-3" 
+                        type="submit">Sign Up</Button>
                     </Form>
                 </Card.Body>
             </Card>
