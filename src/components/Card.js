@@ -1,7 +1,7 @@
 import React from 'react'
 import { Card, Button, Form } from 'react-bootstrap'
 
-export default function Card(card) {
+export default function Flashcard(card) {
   return (
     <>
       <Card style={{ width: '18rem' }}>

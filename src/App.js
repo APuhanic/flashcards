@@ -7,16 +7,16 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import TodoPage from './pages/TodoPage';
 import ErrorPage from './pages/ErrorPage';
-import Footbar from './components/Footbar';
 import SignUp from './pages/SignUp';
 import { Container } from 'react-bootstrap';
 import { AuthProvider } from './contexts/authContext';
 import PrivateRoute from './components/PrivateRoute';
 import Profile from './pages/Profile';
 import ForgotPassword from './pages/ForgotPassword';
-import Decks from './pages/Decks'
+import DeckList from './components/DeckList';
 import Classes from './pages/Classes';
 import Deck from './components/Deck';
+import DeckPage from './pages/DeckPage';
 
 const LOCAL_STORAGE_KEY = 'todoApp.todos'
 
@@ -25,7 +25,6 @@ function App() {
   return (
     <>
       <AuthProvider>
-
         <Router>
           <Navbar />
           <div className='content'>
@@ -33,10 +32,8 @@ function App() {
               <Route exact path='/' element={<PrivateRoute />}>
                 <Route exact path='/' element={<Profile />} />
               </Route>
-
               <Route path='/Login' element={
-                <Container className='d-flex justify-content-center'
-                >
+                <Container className='d-flex justify-content-center'>
                   <div className='w-100' style={{ maxWidth: "400px", minWidth: "150px" }}>
                     <Login />
                   </div>
@@ -49,15 +46,13 @@ function App() {
 
               <Route exact path='/Profile' element={<Profile />} />
 
-              <Route  path='/Classes' element={<Classes />} />
-              <Route  path='/Decks' element={<Decks />} />
-              <Route  path='/Deck' element={<Deck />} />
-
-
+              <Route path='/Classes' element={<Classes />} />
+              <Route path='/DeckList' element={<DeckList />} />
+              <Route path='/Deck' element={<Deck />} />
+              <Route path='/Home/:deckName' element={<DeckPage />} />
               <Route path='/ForgotPassword' element={<ForgotPassword />}></Route>
               <Route path='/SignUp' element={
-                <Container className='d-flex justify-content-center'
-                >
+                <Container className='d-flex justify-content-center'>
                   <div className='w-100' style={{ maxWidth: "400px", minWidth: "150px" }}>
                     <SignUp />
                   </div>
@@ -67,7 +62,7 @@ function App() {
               <Route path="*" element={<ErrorPage />}></Route>
             </Routes>
           </div>
-          <Footbar />
+
         </Router>
       </AuthProvider>
 

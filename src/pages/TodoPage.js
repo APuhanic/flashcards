@@ -27,7 +27,7 @@ export default function TodoPage() {
     const name = todoNameRef.current.value
     if (name === '') return
     setTodos(prevTodos => {
-      return [...prevTodos, { id: uuidv4(), name: name, complete: false }]
+      return [...prevTodos, { name: name, complete: false }]
     })
     todoNameRef.current.value = null
   }

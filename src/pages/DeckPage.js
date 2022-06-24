@@ -10,7 +10,6 @@ export default function DeckPage() {
 
     return (
         <>
-            <Button variant="primary" className='mt-3 mb-3' onClick={createUser}>Create Cards</Button>
 
         </>
 
