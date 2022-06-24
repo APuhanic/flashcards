@@ -1,5 +1,4 @@
 import React from 'react'
-import { Button } from 'react-bootstrap'
 export default function Navbar() {
   return (
     <nav className='navbar'>

@@ -7,8 +7,6 @@ import { getDatabase } from "firebase/database";
 import { setDoc, doc } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 
-
-
 export default function Login() {
   const emailRef = useRef()
   const passwordRef = useRef()
@@ -19,7 +17,6 @@ export default function Login() {
   const db = getDatabase();
   const { currentUser } = useAuth();
   const auth = getAuth();
-
 
   async function createUser() {
     try {
@@ -41,15 +38,12 @@ export default function Login() {
       createUser()
       navigate("/Profile")
 
-
     } catch (error) {
       setError('Failed to log in.')
       console.log(error)
     }
     setLoading(false)
   }
-
-
 
   return (
     <>
@@ -71,7 +65,6 @@ export default function Login() {
             <div className="w-100 text-center mt-3">
               <Link to="/ForgotPassword">Forgot Password? </Link>
             </div>
-
 
           </Form>
         </Card.Body>
