@@ -3,15 +3,13 @@ import { useParams } from 'react-router-dom'
 import { useAuth } from '../contexts/authContext';
 
 export default function DeckPage() {
-    const deckName = useParams();
+    const deck = useParams();
     const { currentUser } = useAuth()
-    console.log(deckName)
-
+    console.log(deck.deckName)
 
     return (
         <>
-
+            
         </>
-
     )
 }

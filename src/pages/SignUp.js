@@ -2,14 +2,10 @@ import React, { useRef, useState } from 'react';
 import { useAuth } from '../contexts/authContext';
 import { Button, Form, Card, Alert } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom"
-import { getDatabase, ref, set } from "firebase/database";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { async } from '@firebase/util';
 import { getFirestore, collection, setDoc, doc, getDoc, getDocs, addDoc, deleteDoc } from "firebase/firestore"
 import app from '../firebase/firebase'
 
 const db = getFirestore(app)
-
 
 export default function SignUp() {
     const emailRef = useRef()
@@ -20,7 +16,6 @@ export default function SignUp() {
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
 
-
     async function handleSubmit(e) {
         e.preventDefault()
         if (passwordConfirmationRef.current.value !== passwordRef.current.value) {
@@ -30,7 +25,7 @@ export default function SignUp() {
             setError("")
             setLoading(true)
             const res = await signup(emailRef.current.value, passwordRef.current.value)
-            navigate('/')
+            navigate('/Profile')
         } catch (error) {
             setError('Failed to create an account.')
             console.log(error)
