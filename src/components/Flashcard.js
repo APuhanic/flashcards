@@ -1,18 +1,22 @@
 import React from 'react'
-import { Card, Button, Form } from 'react-bootstrap'
+import { Card, Container, Row, Col } from 'react-bootstrap'
 
-export default function Flashcard(card) {
+export default function Flashcard({ flashcard }) {
+  console.log(flashcard)
   return (
     <>
-      <Card style={{ width: '18rem' }}>
-        <Card.Img variant="top" src="holder.js/100px180" />
+      <Card className="mt-3 mb-3">
         <Card.Body>
-          <Card.Title>Card Title</Card.Title>
           <Card.Text>
-            Some quick example text to build on the card title and make up the bulk of
-            the card's content.
+            <Container fluid>
+              <Row>
+                <Col>Q:{flashcard.question}</Col>
+              </Row>
+              <Row>
+                <Col>A:{flashcard.answer}</Col>
+              </Row>
+            </Container>
           </Card.Text>
-          <Button variant="primary">Go somewhere</Button>
         </Card.Body>
       </Card>
     </>

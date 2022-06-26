@@ -20,10 +20,8 @@ export default function Home() {
   const auth = getAuth();
   const navigate = useNavigate();
   const deckNameRef = useRef();
-  console.log(decks)
 
   function onDeckClick(deck) {
-    console.log(deck)
     navigate(`/Home/${deck}`);
   }
 
