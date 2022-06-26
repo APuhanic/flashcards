@@ -2,7 +2,6 @@ import React from 'react'
 import { Card, Container, Row, Col } from 'react-bootstrap'
 
 export default function Flashcard({ flashcard }) {
-  console.log(flashcard)
   return (
     <>
       <Card className="mt-3 mb-3">

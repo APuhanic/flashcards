@@ -7,7 +7,7 @@ import { getFirestore, setDoc, doc } from "firebase/firestore"
 import app from '../firebase/firebase'
 import { getAuth } from "firebase/auth";
 import { getDeck } from '../firebase/firebasedb';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import DeckList from '../components/DeckList';
 import { addDeck } from '../firebase/firebasedb';
 import { Card } from 'react-bootstrap';

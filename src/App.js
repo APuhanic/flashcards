@@ -11,7 +11,6 @@ import PrivateRoute from './components/PrivateRoute';
 import Profile from './pages/Profile';
 import ForgotPassword from './pages/ForgotPassword';
 import DeckList from './components/DeckList';
-import Classes from './pages/Classes';
 import Deck from './components/Deck';
 import DeckPage from './pages/DeckPage';
 import Studying from './pages/Studying';
@@ -32,7 +31,6 @@ function App() {
               <Route path='/Profile' element={<Profile />}></Route>
               <Route path='/Home/:id/' element={<DeckPage />}></Route>
               <Route path='/Home/:id/studying' element={<Studying />}></Route>
-              <Route path='/Classes' element={<Classes />} />
               <Route path='/DeckList' element={<DeckList />} />
               <Route path='/Deck' element={<Deck />} />
               <Route path='/ForgotPassword' element={<ForgotPassword />}></Route>
