@@ -69,7 +69,7 @@ export default function Home() {
           </Card.Body>
         </Card>
 
-        <div className=''>
+        <div className='justify-content-center w-50 '>
           {decks && <DeckList decks={decks} onDeckClick={onDeckClick} />}
         </div>
       </Container>

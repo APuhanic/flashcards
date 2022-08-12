@@ -1,8 +1,8 @@
 :root {
-  --fs-h1: 3rem;
+  --fs-h1: 3rem !important;
   --fs-h2: 2.25rem;
-  --fs-h3: 1.25rem;
-  --fs-body: 1.25rem;
+  --fs-h3: 1.50rem;
+  --fs-body: 1.25rem !important;
 
   --bs: 0.25em 0.25em 0.75em rgba(0, 0, 0, 0.25),
     0.125em 0.125em 0.25em rgba(0, 0, 0, 0.15);
@@ -16,8 +16,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: slategray;
-  font-size: var(--fs-body);
-
+  position: relative;
 }
 
 code {
@@ -30,6 +29,8 @@ code {
   margin: 0;
   font-family: "Verdana";
   color: #333;
+  font-size: var(--fs-body);
+
 }
 .navbar {
   padding: 20px;
@@ -63,11 +64,42 @@ code {
   border-radius: 8px;
   color: whitesmoke;
 }
-.LogInButton:hover{
+.LogInButton:hover {
   background-color: rgb(118, 118, 118);
 }
 
-.desno{
+.desno {
   text-align: right;
 }
+.btn-one {
+  background-color: rgb(240, 58, 58);
+  color: white;
+  width: 8rem;
+}
+.btn-two {
+  background-color: rgb(242, 145, 41);
+  color: white;
+  width: 8rem;
+}
+.btn-three {
+  background-color: rgb(231, 199, 40);
+  color: white;
+  width: 8rem;
+}
+.btn-four {
+  background-color: rgb(56, 162, 56);
+  color: white;
+  width: 8rem;
+}
+.btn-five {
+  background-color: rgb(45, 85, 177);
+  color: white;
+  width: 8rem;
+}
 
+.flashcard {
+  white-space: pre-line;
+}
+
+.card-body{
+}
