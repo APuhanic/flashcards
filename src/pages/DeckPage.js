@@ -10,6 +10,7 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
+import { async } from "@firebase/util";
 
 export default function DeckPage() {
   const deck = useParams();
@@ -31,6 +32,9 @@ export default function DeckPage() {
     navigate(`/Home/${deck.id}/studying`);
   }
 
+  //create a new card and add it to the deck  in firebase
+  //add the new card to the flashcards array
+ 
   async function handleAddNewCard(e) {
     e.preventDefault();
     try {
@@ -39,16 +43,16 @@ export default function DeckPage() {
         const path = `/${currentUser.uid}/${file.name}`;
         const storageRef = ref(storage, path);
         const uploadTask = uploadBytesResumable(storageRef, file);
-        const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+        const snapshot = await uploadTask;
+        const downloadURL = await getDownloadURL(snapshot.ref);
         image = downloadURL;
         console.log(image);
         setFile(null);
       }
-
-      addCard(deck.id, answer, question, image);
-      setFlashcards((prevFlashcards) => {
-        return [...prevFlashcards, { answer, question, image }];
-      });
+  
+      const newCard = { answer, question, image };
+      addCard(deck.id, newCard.answer, newCard.question, newCard.image);
+      setFlashcards(prevFlashcards => [...prevFlashcards, newCard]);
       setQuestion("");
       setAnswer("");
       fileRef.current.value = null;

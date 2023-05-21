@@ -25,7 +25,8 @@ export default function Profile() {
           <Card.Text>
             <h2 className='text-center mb-4'>Profile</h2>
             {error && <Alert variant="danger">{error}</Alert>}
-            <strong className='text-center mb-1'>Email:</strong> {currentUser.email}
+            <strong className='text-center mb-1'>Email:</strong>
+            <div>{currentUser.email}</div> 
           </Card.Text>
           <Button className=" mt-3" type="submit" size="sg">Update profile</Button>
         </Card.Body>
