@@ -14,15 +14,13 @@ import DeckList from './components/DeckList';
 import Deck from './components/Deck';
 import DeckPage from './pages/DeckPage';
 import Studying from './pages/Studying';
-
 function App() {
-
   return (
     <>
       <AuthProvider>
         <Router>
           <Navbar />
-          <div className='content'>
+          <div className='content justify-content-center'>
             <Routes>
               <Route exact path='/' element={<PrivateRoute />}>
                 <Route exact path='/' element={<Profile />} />

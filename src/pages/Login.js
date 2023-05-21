@@ -36,7 +36,7 @@ export default function Login() {
       setLoading(true)
       await login(emailRef.current.value, passwordRef.current.value)
       createUser()
-      navigate("/Profile")
+      navigate("/Home")
 
     } catch (error) {
       setError('Failed to log in.')
@@ -71,7 +71,7 @@ export default function Login() {
       </Card>
       <div className="w-100 text-center mt-2">
         Need an account?
-        <Link to='/SignUp' className=''> Sign up</Link>
+        <Link to='/SignUp' className='text-Pink '> Sign up</Link>
       </div>
     </>
   )

@@ -1,7 +1,16 @@
-import { getFirestore, collection, setDoc, doc, getDocs, addDoc } from "firebase/firestore"
-import app from "./firebase"
+import { async } from "@firebase/util";
+import {
+  getFirestore,
+  collection,
+  setDoc,
+  doc,
+  getDocs,
+  addDoc,
+  deleteDoc,
+} from "firebase/firestore";
+import app from "./firebase";
 
-const db = getFirestore(app)
+const db = getFirestore(app);
 
 var deckRef;
 
@@ -15,33 +24,34 @@ export function clearuserDBref() {
 
 export async function getDeck(deckID) {
   if (deckRef) {
-    const userDecks = []
-    const snapshot = await getDocs(deckRef)
+    const userDecks = [];
+    const snapshot = await getDocs(deckRef);
     snapshot.forEach((doc) => {
       const data = doc.data();
-      userDecks.push({ "id": doc.id, "deckName": data.deckName })
-    })
-    return userDecks
+      userDecks.push({ id: doc.id, deckName: data.deckName });
+    });
+    return userDecks;
   }
 }
 
 export async function addDeck(NewDeckName) {
   if (deckRef) {
-    const docRef = doc(deckRef, NewDeckName)
+    const docRef = doc(deckRef, NewDeckName);
     const ref = await setDoc(docRef, {
-      deckName: NewDeckName
-    })
+      deckName: NewDeckName,
+    });
     console.log("Document written with ID: ", ref);
   }
 }
 
-export async function addCard(deckName, answer, question) {
+export async function addCard(deckName, answer, question, image) {
   if (deckRef) {
-    const docRef = collection(deckRef, deckName, "cards")
+    const docRef = collection(deckRef, deckName, "cards");
     const newdocReF = await addDoc(docRef, {
       answer: answer,
-      question: question
-    })
+      question: question,
+      image: image,
+    });
     console.log("Document written with ID: ", newdocReF.id);
   }
 }
@@ -49,13 +59,38 @@ export async function addCard(deckName, answer, question) {
 export async function getCards(deckID) {
   if (deckRef) {
     const userCards = [];
-    const cardRef = collection(deckRef, deckID, "cards")
-    const snapshot = await getDocs(cardRef)
+    const cardRef = collection(deckRef, deckID, "cards");
+    const snapshot = await getDocs(cardRef);
     snapshot.forEach((doc) => {
-      const data = doc.data()
-      userCards.push({ "id": doc.id, "answer": data.answer, "question": data.question })
+      const data = doc.data();
+      userCards.push({
+        id: doc.id,
+        answer: data.answer,
+        question: data.question,
+        grade: data.grade,
+        image: data.image,
+      });
+    });
+    return userCards;
+  }
+}
 
-    })
-    return userCards
+export async function deleteCard(deckID, flashID) {
+  if (deckRef) {
+    const documentRef = doc(deckRef, deckID, "cards", flashID);
+    await deleteDoc(documentRef);
+  }
+}
+
+export async function changeGrade(deckID, flashcard, grade) {
+  if (deckRef) {
+    console.log(flashcard.image);
+    const documentRef = doc(deckRef, deckID, "cards", flashcard.id);
+    const newGrade = await setDoc(documentRef, {
+      answer: flashcard.answer,
+      question: flashcard.question,
+      image: flashcard.image,
+      grade: grade,
+    });
   }
 }
