@@ -1,14 +1,9 @@
 import React from "react";
 import { Card, Container, Row, Col, Image } from "react-bootstrap";
-import { deleteCard } from "../firebase/firebasedb";
-import { useParams } from "react-router-dom";
+
 import { useState, useEffect } from "react";
 
-export default function Flashcard({ flashcard, onDeckChange }) {
-
-  const deck = useParams();
-  const deckID = deck.id;
-  const flashcardID = flashcard.id;
+export default function StudyCard({ flashcard }) {
   const [styles, setStyles] = useState();
   const styles1 = {
     borderStyle: "solid ",
@@ -36,16 +31,6 @@ export default function Flashcard({ flashcard, onDeckChange }) {
     borderWidth: "0 0 5px",
   };
 
-  async function handleDelete() {
-    try {
-      await deleteCard(deckID, flashcardID);
-      console.log("Card deleted");
-      onDeckChange();
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   useEffect(() => {
     if (flashcard.grade === 1) {
       setStyles(styles1);
@@ -64,6 +49,7 @@ export default function Flashcard({ flashcard, onDeckChange }) {
     }
   }, [flashcard.grade]);
 
+ 
   return (
     <>
       <div className="flashcard">
@@ -94,16 +80,7 @@ export default function Flashcard({ flashcard, onDeckChange }) {
                     </Col>
                   </Row>
                 </Col>
-                <Col xs={1}>
-                  <Row>
-                    <button
-                      style={{ backgroundColor: "transparent", border: "0px" }}
-                      onClick={handleDelete}
-                    >
-                      <Image src={require("../delete.png")} />
-                    </button>
-                  </Row>
-                </Col>
+
               </Row>
             </Container>
           </Card.Body>

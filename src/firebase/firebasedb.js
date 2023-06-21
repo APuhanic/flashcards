@@ -1,4 +1,3 @@
-import { async } from "@firebase/util";
 import {
   getFirestore,
   collection,
@@ -77,20 +76,31 @@ export async function getCards(deckID) {
 
 export async function deleteCard(deckID, flashID) {
   if (deckRef) {
+    console.log("deckID:", deckID);
+    console.log("flashID:", flashID);
     const documentRef = doc(deckRef, deckID, "cards", flashID);
     await deleteDoc(documentRef);
   }
 }
 
+
+
 export async function changeGrade(deckID, flashcard, grade) {
   if (deckRef) {
     console.log(flashcard.image);
     const documentRef = doc(deckRef, deckID, "cards", flashcard.id);
-    const newGrade = await setDoc(documentRef, {
+    await setDoc(documentRef, {
       answer: flashcard.answer,
       question: flashcard.question,
       image: flashcard.image,
       grade: grade,
     });
+  }
+}
+
+export async function deleteDeck(deckID){
+  if (deckRef) {
+    const documentRef = doc(deckRef, deckID);
+    await deleteDoc(documentRef);
   }
 }

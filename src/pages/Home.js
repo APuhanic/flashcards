@@ -24,7 +24,13 @@ export default function Home() {
   function onDeckClick(deck) {
     navigate(`/Home/${deck}`);
   }
-
+  function onChange() {
+    if (currentUser) {
+      getDeck().then((res) => {
+        setDecks(res);
+      });
+    }
+  }
   async function createUser() {
     try {
       setDoc(doc(db, "users", auth.currentUser.uid), {
@@ -75,7 +81,7 @@ export default function Home() {
         <Container>
           <Row className="justify-content-md-center">
             <Col xs lg="8">
-              {decks && <DeckList decks={decks} onDeckClick={onDeckClick} />}
+              {decks && <DeckList decks={decks} onDeckClick={onDeckClick} onChange={onChange}/>}
             </Col>
           </Row>
         </Container>

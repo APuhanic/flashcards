@@ -10,13 +10,11 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
-import { async } from "@firebase/util";
 
 export default function DeckPage() {
   const deck = useParams();
   const [answer, setAnswer] = useState("");
   const [question, setQuestion] = useState("");
-  const [image, setImage] = useState("");
   const [file, setFile] = useState(null);
   const handleImageAsFile = (e) => {
     setFile(e.target.files[0]);
@@ -32,9 +30,14 @@ export default function DeckPage() {
     navigate(`/Home/${deck.id}/studying`);
   }
 
-  //create a new card and add it to the deck  in firebase
-  //add the new card to the flashcards array
- 
+  function onDeckChange() {
+    if (currentUser) {
+      getCards(deck.id).then((res) => {
+        setFlashcards(res);
+      });
+    }
+  }
+
   async function handleAddNewCard(e) {
     e.preventDefault();
     try {
@@ -42,17 +45,18 @@ export default function DeckPage() {
       if (file != null) {
         const path = `/${currentUser.uid}/${file.name}`;
         const storageRef = ref(storage, path);
-        const uploadTask = uploadBytesResumable(storageRef, file);
+        const uploadTask = await uploadBytesResumable(storageRef, file);
         const snapshot = await uploadTask;
         const downloadURL = await getDownloadURL(snapshot.ref);
         image = downloadURL;
         console.log(image);
         setFile(null);
       }
-  
+
       const newCard = { answer, question, image };
-      addCard(deck.id, newCard.answer, newCard.question, newCard.image);
-      setFlashcards(prevFlashcards => [...prevFlashcards, newCard]);
+      await addCard(deck.id, newCard.answer, newCard.question, newCard.image);
+
+      onDeckChange();
       setQuestion("");
       setAnswer("");
       fileRef.current.value = null;
@@ -74,8 +78,7 @@ export default function DeckPage() {
       <Container className="w-75 justify-content-center">
         <div className="StartStudyingButton text-center mb-3">
           <Button size="lg" onClick={startStudying}>
-            {" "}
-            Start studying{" "}
+            Start studying
           </Button>
         </div>
         <Card className="d-flex justify-content-center">
@@ -99,34 +102,25 @@ export default function DeckPage() {
                   required
                 />
               </Form.Group>
-              <Container>
-                <Row>
-                  <Col></Col>
-                  <Col>
-                    <Button
-                      disabled={question.length === 0}
-                      variant="primary"
-                      className="mt-3 mb-3 add-card"
-                      type="submit"
-                    >
-                      Add Card
-                    </Button>
-                    <input
-                      id="file-input"
-                      type="file"
-                      ref={fileRef}
-                      onChange={handleImageAsFile}
-                      className="input"
-                    />
-                  </Col>
-                </Row>
-              </Container>
+              <Form.Group id="image" className="mt-3">
+                <Form.Control
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageAsFile}
+                  ref={fileRef}
+                />
+              </Form.Group>
+              <Button className="w-100 mt-3" type="submit">
+                Add New Card
+              </Button>
             </Form>
           </Card.Body>
         </Card>
-        <Container className="w-75 justify-content-center">
-          {flashcards && <FlashcardList flashcards={flashcards} />}
-        </Container>
+        <Row className="mt-3">
+          <Col>
+            <FlashcardList flashcards={flashcards} onDeckChange={onDeckChange} />
+          </Col>
+        </Row>
       </Container>
     </>
   );
