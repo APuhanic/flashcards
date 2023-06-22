@@ -47,7 +47,6 @@ export default function Flashcard({ flashcard, onDeckChange }) {
     }
   }
   async function handleEditCard(question, answer) {
-    console.log(flashcardID);
     await editCard(deckID, flashcardID, question, answer);
     setShowModal(false); // Close the modal
     onDeckChange();

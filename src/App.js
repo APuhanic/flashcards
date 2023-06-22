@@ -24,17 +24,18 @@ function App() {
             <Routes>
               <Route exact path='/' element={<PrivateRoute />}>
                 <Route exact path='/' element={<Profile />} />
-              </Route>
-              <Route path='/Home' element={<Home />}></Route>
+                <Route path='/Home' element={<Home />}></Route>
               <Route path='/Profile' element={<Profile />}></Route>
               <Route path='/Home/:id/' element={<DeckPage />}></Route>
               <Route path='/Home/:id/studying' element={<Studying />}></Route>
               <Route path='/DeckList' element={<DeckList />} />
               <Route path='/Deck' element={<Deck />} />
+              </Route>
+
               <Route path='/ForgotPassword' element={<ForgotPassword />}></Route>
               <Route path='/SignUp' element={
                 <Container className='d-flex justify-content-center'>
-                  <div className='w-100' style={{ maxWidth: "400px", minWidth: "150px" }}>
+                  <div className='w-100' style={{ maxWidth: "450px", minWidth: "150px" }}>
                     <SignUp />
                   </div>
                 </Container>
@@ -42,7 +43,7 @@ function App() {
               </Route>
               <Route path='/Login' element={
                 <Container className='d-flex justify-content-center'>
-                  <div className='w-100' style={{ maxWidth: "400px", minWidth: "150px" }}>
+                  <div className='w-100' style={{ maxWidth: "450px", minWidth: "150px" }}>
                     <Login />
                   </div>
                 </Container>

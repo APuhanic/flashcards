@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/authContext'
 import { Alert } from 'react-bootstrap'
 import Button from 'react-bootstrap/Button';
@@ -11,12 +11,12 @@ export default function Navbar() {
 
   function LoggedInButton() {
     return (
-      <a href='/Login'><Button variant="outline-primary">Log in</Button>
-      </a>
-
+      <Link to='/Login'>
+        <Button variant="outline-primary">Log in</Button>
+      </Link>
     )
-
   }
+
   function LoggedOutButton() {
     async function handleLogOut() {
       setError("")
@@ -43,10 +43,10 @@ export default function Navbar() {
   return (
     <>
       <nav className='navbar'>
-        <h1>Flashcards</h1>
+        <Link to="/Home">
+          <h1 className="title">Flashcards</h1>
+        </Link>
         <div className='links'>
-          <a href='/Home'>Home</a>
-          <a href='/Profile' className='Profile me-2'>Profile</a>
           <LogState></LogState>
         </div>
       </nav>

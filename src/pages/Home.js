@@ -11,7 +11,6 @@ import { useNavigate } from "react-router-dom";
 import DeckList from "../components/DeckList";
 import { addDeck } from "../firebase/firebasedb";
 import { Card, Row, Col } from "react-bootstrap";
-
 const db = getFirestore(app);
 
 export default function Home() {
@@ -81,7 +80,13 @@ export default function Home() {
         <Container>
           <Row className="justify-content-md-center">
             <Col xs lg="8">
-              {decks && <DeckList decks={decks} onDeckClick={onDeckClick} onChange={onChange}/>}
+              {decks && (
+                <DeckList
+                  decks={decks}
+                  onDeckClick={onDeckClick}
+                  onChange={onChange}
+                />
+              )}
             </Col>
           </Row>
         </Container>

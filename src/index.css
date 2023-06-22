@@ -134,3 +134,7 @@ code {
 .dropdown-menu-item {
   font-size: 0.875rem;
 }
+.title:hover {
+  color: lightblue;
+}
+

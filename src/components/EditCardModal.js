@@ -9,7 +9,6 @@ export default function EditCardModal({
 }) {
   const [question, setQuestion] = useState();
   const [answer, setAnswer] = useState();
-  const [image, setImage] = useState();
 
   return (
     <>
@@ -24,9 +23,11 @@ export default function EditCardModal({
               <Form.Control
                 as="textarea"
                 defaultValue={flashcard.question}
-                onChange={(e) => setQuestion(e.target.value)}
+                onChange={(e) => {
+                  setQuestion(e.target.value)
+                }
+                }
                 placeholder="Question"
-                required
               />
             </Form.Group>
             <Form.Group id="answer" className="mt-3">
@@ -35,7 +36,6 @@ export default function EditCardModal({
                 defaultValue={flashcard.answer}
                 onChange={(e) => setAnswer(e.target.value)}
                 placeholder="Answer"
-                required
               />
             </Form.Group>
 

@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import Navbar from "../components/Navbar";
 
 export default function ErrorPage() {
   return (
     <div>
-        ERROR! PAGE NOT FOUND
+      <Navbar />
+
+      <div>ERROR! PAGE NOT FOUND</div>
     </div>
-  )
+  );
 }
