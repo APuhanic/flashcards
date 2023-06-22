@@ -110,11 +110,11 @@ code {
   justify-content: center;
 }
 .deck:hover {
-  background-color: rgb(192, 203, 215);
+  background-color: rgb(241, 246, 250);
   border-radius: 8px;
 }
 .delete-icon {
-  padding: 10px; /* Adjust the padding as per your preference */
+  padding: 10px;
 }
 
 .delete-icon:hover {
@@ -137,4 +137,16 @@ code {
 .title:hover {
   color: lightblue;
 }
-
+.deck-name{
+  padding: 0.5rem;
+}
+.deck-name:hover {
+  color: rgb(7, 82, 153);
+  background-color: rgba(
+    113,
+    159,
+    184,
+    0.3
+  ); /* Adjust the opacity as per your preference */
+  border-radius: 10%;
+}

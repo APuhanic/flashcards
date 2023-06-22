@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Card, Container, Row, Col, Image } from "react-bootstrap";
 import { deleteCard, editCard } from "../firebase/firebasedb";
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
 import DropdownMenu from "./DropdownMenu";
 import EditCardModal from "./EditCardModal";
 export default function Flashcard({ flashcard, onDeckChange }) {
@@ -10,7 +9,7 @@ export default function Flashcard({ flashcard, onDeckChange }) {
   const deckID = deck.id;
   const flashcardID = flashcard.id;
   const [styles, setStyles] = useState();
-  const [showModal, setShowModal] = useState(false); // State for controlling the modal
+  const [showModal, setShowModal] = useState(false); 
   const styles1 = {
     borderStyle: "solid ",
     borderWidth: "0 0 5px",
@@ -48,15 +47,15 @@ export default function Flashcard({ flashcard, onDeckChange }) {
   }
   async function handleEditCard(question, answer) {
     await editCard(deckID, flashcardID, question, answer);
-    setShowModal(false); // Close the modal
+    setShowModal(false);
     onDeckChange();
   }
   async function handleEdit() {
-    setShowModal(true); // Open the modal when "Edit" is clicked
+    setShowModal(true); 
   }
 
   function handleCloseModal() {
-    setShowModal(false); // Close the modal
+    setShowModal(false);
   }
 
   useEffect(() => {

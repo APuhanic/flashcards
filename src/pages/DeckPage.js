@@ -76,7 +76,7 @@ export default function DeckPage() {
   return (
     <>
       <Container className="w-75 justify-content-center">
-        <div className="StartStudyingButton text-center mb-3">
+        <div className=" text-center mb-3">
           <Button size="lg" onClick={startStudying}>
             Start studying
           </Button>
@@ -118,7 +118,10 @@ export default function DeckPage() {
         </Card>
         <Row className="mt-3">
           <Col>
-            <FlashcardList flashcards={flashcards} onDeckChange={onDeckChange} />
+            <FlashcardList
+              flashcards={flashcards}
+              onDeckChange={onDeckChange}
+            />
           </Col>
         </Row>
       </Container>

@@ -104,7 +104,7 @@ export async function deleteDeck(deckID) {
   }
 }
 
-export async function editCard(deckID, flashcard, answer, question) {
+export async function editCard(deckID, flashcard, question, answer) {
   console.log(question);
   if (deckRef) {
     const documentRef = doc(deckRef, deckID, "cards", flashcard);

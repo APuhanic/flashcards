@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { ListGroup, Container, Row, Col } from "react-bootstrap";
+import { ListGroup, Container, Row, Col, Image } from "react-bootstrap";
 import { useAuth } from "../contexts/authContext";
-import { getCards } from "../firebase/firebasedb";
-import { Image } from "react-bootstrap";
-import { deleteDeck } from "../firebase/firebasedb";
+import { getCards, deleteDeck } from "../firebase/firebasedb";
 export default function Deck({ deck, onClick, onChange }) {
   const [flashcards, setFlashcards] = useState([]);
   const { currentUser } = useAuth();
@@ -27,7 +25,7 @@ export default function Deck({ deck, onClick, onChange }) {
         <Container fluid>
           <Row>
             <Col onClick={(_) => onClick(deck.deckName)}>
-              <b>{deck.deckName}</b>
+              <b className="deck-name">{deck.deckName}</b>
             </Col>
             <Col>
               <span className="text-black-50">{flashcards.length} cards</span>{" "}
@@ -35,11 +33,11 @@ export default function Deck({ deck, onClick, onChange }) {
             <Col>
               <span
                 style={{
-                  float: "right", // Add this line
+                  float: "right", 
                 }}
                 onClick={handleDeckDelete}
               >
-                <Image src={require("../delete.png")}  className="delete-icon" />
+                <Image src={require("../delete.png")} className="delete-icon" />
               </span>{" "}
             </Col>
           </Row>

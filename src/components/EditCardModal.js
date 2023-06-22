@@ -5,14 +5,13 @@ export default function EditCardModal({
   showModal,
   handleCloseModal,
   flashcard,
-  handleEditCard
+  handleEditCard,
 }) {
   const [question, setQuestion] = useState();
   const [answer, setAnswer] = useState();
 
   return (
     <>
-      {/* Modal for editing the card */}
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
           <Modal.Title>Edit Card</Modal.Title>
@@ -24,9 +23,8 @@ export default function EditCardModal({
                 as="textarea"
                 defaultValue={flashcard.question}
                 onChange={(e) => {
-                  setQuestion(e.target.value)
-                }
-                }
+                  setQuestion(e.target.value);
+                }}
                 placeholder="Question"
               />
             </Form.Group>
@@ -38,15 +36,16 @@ export default function EditCardModal({
                 placeholder="Answer"
               />
             </Form.Group>
-
-
           </Form>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseModal}>
             Close
           </Button>
-          <Button variant="primary" onClick={() => handleEditCard(question, answer)}>
+          <Button
+            variant="primary"
+            onClick={() => handleEditCard(question, answer)}
+          >
             Save Changes
           </Button>
         </Modal.Footer>

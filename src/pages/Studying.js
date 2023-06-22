@@ -4,13 +4,16 @@ import { useParams } from "react-router-dom";
 import { useAuth } from "../contexts/authContext";
 import { getCards, changeGrade } from "../firebase/firebasedb";
 import StudyCard from "../components/StudyCard";
-export default function studying() {
+
+export default function Studying() {
   const [flashcards, setFlashcards] = useState([]);
   const [currentCard, setCurrentCard] = useState(0);
   const currentUser = useAuth();
   const deck = useParams();
-  const StudyCards = flashcards.map((flashcard) => {
-    return <StudyCard flashcard={flashcard}></StudyCard>;
+  const shuffledFlashcards = flashcards.sort(() => Math.random() - 0.5);
+
+  const StudyCards = shuffledFlashcards.map((flashcard) => {
+    return <StudyCard flashcard={flashcard} />;
   });
 
   useEffect(() => {
@@ -26,6 +29,7 @@ export default function studying() {
       setFlashcards(res);
     });
   }
+
   function nextQuestion(event, param) {
     changeGrade(deck.id, flashcards[currentCard], param);
     updateCards();
@@ -39,10 +43,7 @@ export default function studying() {
 
   return (
     <>
-      <Container
-        className=" justify-content-center "
-        style={{ height: "350px" }}
-      >
+      <Container className="justify-content-center" style={{ height: "350px" }}>
         {StudyCards[currentCard]}
         <div className="d-flex justify-content-center review-buttons sticky-bottom">
           <ButtonGroup
@@ -56,7 +57,10 @@ export default function studying() {
             <Button variant="two" onClick={(event) => nextQuestion(event, 2)}>
               2
             </Button>
-            <Button variant="three" onClick={(event) => nextQuestion(event, 3)}>
+            <Button
+              variant="three"
+              onClick={(event) => nextQuestion(event, 3)}
+            >
               3
             </Button>{" "}
             <Button variant="four" onClick={(event) => nextQuestion(event, 4)}>

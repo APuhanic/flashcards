@@ -60,13 +60,13 @@ export default function Home() {
 
   return (
     <>
-      <Container className="justify-content-center w-75">
+      <Container className=" w-75 justify-content-center">
         <Card className="d-flex ">
           <Card.Body>
             <Form onSubmit={HandleNewDeck}>
               <Form.Group id="deckName">
                 <Form.Control
-                  placeholder="Deck Name"
+                  placeholder="Deck name ..."
                   ref={deckNameRef}
                   required
                 />
@@ -78,7 +78,7 @@ export default function Home() {
           </Card.Body>
         </Card>
         <Container>
-          <Row className="justify-content-md-center">
+          <Row className="d-flex justify-content-center">
             <Col xs lg="8">
               {decks && (
                 <DeckList
