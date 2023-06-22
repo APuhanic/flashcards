@@ -100,13 +100,37 @@ code {
 }
 
 .input {
-  font-size:.75rem;
+  font-size: 0.75rem;
   float: left;
 }
-.add-card{
+.add-card {
   float: right;
 }
-.flashcardImage{
+.flashcardImage {
   justify-content: center;
+}
+.deck:hover {
+  background-color: rgb(192, 203, 215);
+  border-radius: 8px;
+}
+.delete-icon {
+  padding: 10px; /* Adjust the padding as per your preference */
+}
 
+.delete-icon:hover {
+  background-color: rgba(
+    113,
+    159,
+    184,
+    0.3
+  ); /* Adjust the opacity as per your preference */
+  border-radius: 50%;
+}
+
+.dropdown-toggle-split {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+}
+.dropdown-menu-item {
+  font-size: 0.875rem;
 }

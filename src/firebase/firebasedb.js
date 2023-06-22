@@ -6,6 +6,7 @@ import {
   getDocs,
   addDoc,
   deleteDoc,
+  updateDoc,
 } from "firebase/firestore";
 import app from "./firebase";
 
@@ -83,8 +84,6 @@ export async function deleteCard(deckID, flashID) {
   }
 }
 
-
-
 export async function changeGrade(deckID, flashcard, grade) {
   if (deckRef) {
     console.log(flashcard.image);
@@ -98,9 +97,19 @@ export async function changeGrade(deckID, flashcard, grade) {
   }
 }
 
-export async function deleteDeck(deckID){
+export async function deleteDeck(deckID) {
   if (deckRef) {
     const documentRef = doc(deckRef, deckID);
     await deleteDoc(documentRef);
+  }
+}
+
+export async function editCard(deckID, flashcard, answer, question) {
+  if (deckRef) {
+    const documentRef = doc(deckRef, deckID, "cards", flashcard);
+    await updateDoc(documentRef, {
+      answer: answer,
+      question: question,
+    });
   }
 }

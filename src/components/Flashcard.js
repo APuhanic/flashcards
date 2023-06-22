@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card, Container, Row, Col, Image } from "react-bootstrap";
-import { deleteCard } from "../firebase/firebasedb";
+import { deleteCard, editCard } from "../firebase/firebasedb";
 import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
-
+import { useEffect } from "react";
+import DropdownMenu from "./DropdownMenu";
+import EditCardModal from "./EditCardModal";
 export default function Flashcard({ flashcard, onDeckChange }) {
-
   const deck = useParams();
   const deckID = deck.id;
   const flashcardID = flashcard.id;
   const [styles, setStyles] = useState();
+  const [showModal, setShowModal] = useState(false); // State for controlling the modal
   const styles1 = {
     borderStyle: "solid ",
     borderWidth: "0 0 5px",
@@ -44,6 +45,19 @@ export default function Flashcard({ flashcard, onDeckChange }) {
     } catch (error) {
       console.log(error);
     }
+  }
+  async function handleEditCard(question, answer) {
+    console.log(flashcardID);
+    await editCard(deckID, flashcardID, question, answer);
+    setShowModal(false); // Close the modal
+    onDeckChange();
+  }
+  async function handleEdit() {
+    setShowModal(true); // Open the modal when "Edit" is clicked
+  }
+
+  function handleCloseModal() {
+    setShowModal(false); // Close the modal
   }
 
   useEffect(() => {
@@ -96,12 +110,10 @@ export default function Flashcard({ flashcard, onDeckChange }) {
                 </Col>
                 <Col xs={1}>
                   <Row>
-                    <button
-                      style={{ backgroundColor: "transparent", border: "0px" }}
-                      onClick={handleDelete}
-                    >
-                      <Image src={require("../delete.png")} />
-                    </button>
+                    <DropdownMenu
+                      handleDelete={handleDelete}
+                      handleEdit={handleEdit}
+                    />
                   </Row>
                 </Col>
               </Row>
@@ -109,6 +121,12 @@ export default function Flashcard({ flashcard, onDeckChange }) {
           </Card.Body>
         </Card>
       </div>
+      <EditCardModal
+        showModal={showModal}
+        handleCloseModal={handleCloseModal}
+        flashcard={flashcard}
+        handleEditCard={handleEditCard}
+      />
     </>
   );
 }

@@ -23,7 +23,7 @@ export default function Deck({ deck, onClick, onChange }) {
 
   return (
     <ListGroup>
-      <ListGroup.Item action className="mt-2">
+      <ListGroup.Item action className="mt-2 deck">
         <Container fluid>
           <Row>
             <Col onClick={(_) => onClick(deck.deckName)}>
@@ -34,10 +34,12 @@ export default function Deck({ deck, onClick, onChange }) {
             </Col>
             <Col>
               <span
-                style={{ backgroundColor: "transparent", border: "0px", cursor: "pointer" }}
+                style={{
+                  float: "right", // Add this line
+                }}
                 onClick={handleDeckDelete}
               >
-                <Image src={require("../delete.png")} />
+                <Image src={require("../delete.png")}  className="delete-icon" />
               </span>{" "}
             </Col>
           </Row>
