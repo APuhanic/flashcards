@@ -6,7 +6,7 @@ import { Button, Container, Form } from "react-bootstrap";
 import { getFirestore, setDoc, doc } from "firebase/firestore";
 import app from "../firebase/firebase";
 import { getAuth } from "firebase/auth";
-import { getDeck } from "../firebase/firebasedb";
+import { getDecks } from "../firebase/firebasedb";
 import { useNavigate } from "react-router-dom";
 import DeckList from "../components/DeckList";
 import { addDeck } from "../firebase/firebasedb";
@@ -25,7 +25,7 @@ export default function Home() {
   }
   function onChange() {
     if (currentUser) {
-      getDeck().then((res) => {
+      getDecks(currentUser.uid).then((res) => {
         setDecks(res);
       });
     }
@@ -43,7 +43,7 @@ export default function Home() {
     e.preventDefault();
     createUser();
     try {
-      addDeck(deckNameRef.current.value);
+      addDeck(currentUser.uid,deckNameRef.current.value);
     } catch (error) {
       console.log(error);
     }
@@ -52,7 +52,7 @@ export default function Home() {
 
   useEffect(() => {
     if (currentUser) {
-      getDeck().then((res) => {
+      getDecks(currentUser.uid).then((res) => {
         setDecks(res);
       });
     }

@@ -8,14 +8,14 @@ export default function Deck({ deck, onClick, onChange }) {
 
   useEffect(() => {
     if (currentUser) {
-      getCards(deck.id).then((res) => {
+      getCards(currentUser.uid, deck.id).then((res) => {
         setFlashcards(res);
       });
     }
   }, [currentUser]);
 
   async function handleDeckDelete() {
-    await deleteDeck(deck.id);
+    await deleteDeck(currentUser.uid,deck.id);
     onChange();
   }
 
@@ -33,7 +33,7 @@ export default function Deck({ deck, onClick, onChange }) {
             <Col>
               <span
                 style={{
-                  float: "right", 
+                  float: "right",
                 }}
                 onClick={handleDeckDelete}
               >

@@ -4,12 +4,15 @@ import { deleteCard, editCard } from "../firebase/firebasedb";
 import { useParams } from "react-router-dom";
 import DropdownMenu from "./DropdownMenu";
 import EditCardModal from "./EditCardModal";
+import { useAuth } from "../contexts/authContext";
 export default function Flashcard({ flashcard, onDeckChange }) {
   const deck = useParams();
   const deckID = deck.id;
   const flashcardID = flashcard.id;
   const [styles, setStyles] = useState();
   const [showModal, setShowModal] = useState(false); 
+  const { currentUser } = useAuth();
+
   const styles1 = {
     borderStyle: "solid ",
     borderWidth: "0 0 5px",
@@ -38,7 +41,7 @@ export default function Flashcard({ flashcard, onDeckChange }) {
 
   async function handleDelete() {
     try {
-      await deleteCard(deckID, flashcardID);
+      await deleteCard(currentUser.uid ,deckID, flashcardID);
       console.log("Card deleted");
       onDeckChange();
     } catch (error) {
@@ -46,7 +49,8 @@ export default function Flashcard({ flashcard, onDeckChange }) {
     }
   }
   async function handleEditCard(question, answer) {
-    await editCard(deckID, flashcardID, question, answer);
+    console.log(question, answer);
+    await editCard(currentUser.uid,deckID, flashcardID, question, answer);
     setShowModal(false);
     onDeckChange();
   }

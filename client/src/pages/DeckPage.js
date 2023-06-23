@@ -32,7 +32,7 @@ export default function DeckPage() {
 
   function onDeckChange() {
     if (currentUser) {
-      getCards(deck.id).then((res) => {
+      getCards(currentUser.uid,deck.id).then((res) => {
         setFlashcards(res);
       });
     }
@@ -54,7 +54,7 @@ export default function DeckPage() {
       }
 
       const newCard = { answer, question, image };
-      await addCard(deck.id, newCard.answer, newCard.question, newCard.image);
+      await addCard(currentUser.uid,deck.id, newCard.answer, newCard.question, newCard.image);
 
       onDeckChange();
       setQuestion("");
@@ -67,7 +67,7 @@ export default function DeckPage() {
 
   useEffect(() => {
     if (currentUser) {
-      getCards(deck.id).then((res) => {
+      getCards(currentUser.uid,deck.id).then((res) => {
         setFlashcards(res);
       });
     }

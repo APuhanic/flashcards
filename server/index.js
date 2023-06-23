@@ -17,15 +17,10 @@ app.get("/", (req, res) => {
   res.send("Working fine");
 });
 
-// Example API endpoint to get user decks
-// Example API endpoint to handle /api/decks GET request
+// Example API endpoint to GET USER DECKS
 app.get("/api/decks/:userID", async (req, res) => {
   try {
-    // Retrieve the userID from the request parameters
     const userID = req.params.userID;
-    console.log(userID);
-    // Implement the logic to fetch the decks associated with the userID from the database
-    // For example:
     const snapshot = await admin
       .firestore()
       .collection("users")
@@ -35,7 +30,6 @@ app.get("/api/decks/:userID", async (req, res) => {
     const decks = snapshot.docs.map((doc) => {
       return { id: doc.id, ...doc.data() };
     });
-    console.log(decks);
     res.json(decks);
   } catch (error) {
     console.error(error);
@@ -43,28 +37,21 @@ app.get("/api/decks/:userID", async (req, res) => {
   }
 });
 
-// Add more API endpoints for other operations
-
-// Example API endpoint to handle /api/decks POST request
+// Example API endpoint to handle ADDING DECKS
 app.post("/api/decks/:userID", async (req, res) => {
   try {
-    // Retrieve the userID from the request parameters
     const userID = req.params.userID;
-    console.log(userID);
-    // Retrieve the deckName from the request body
     const deckName = req.body.deckName;
-    console.log(deckName);
-    // Implement the logic to add the deck to the database
-    // For example:
     const docRef = await admin
       .firestore()
       .collection("users")
       .doc(userID)
       .collection("decks")
-      .add({
+      .doc(deckName)
+      .set({
         deckName: deckName,
       });
-    console.log("Document written with ID: ", docRef.id);
+
     res.json({ id: docRef.id, deckName: deckName });
   } catch (error) {
     console.error(error);
@@ -72,7 +59,157 @@ app.post("/api/decks/:userID", async (req, res) => {
   }
 });
 
+// api endpoint to handle GETTING CARDS
+app.get("/api/decks/:userID/:deckName/cards", async (req, res) => {
+  try {
+    const userID = req.params.userID;
+    const deckName = req.params.deckName;
+    const snapshot = await admin
+      .firestore()
+      .collection("users")
+      .doc(userID)
+      .collection("decks")
+      .doc(deckName)
+      .collection("cards")
+      .get();
+    const cards = snapshot.docs.map((doc) => {
+      return { id: doc.id, ...doc.data() };
+    });
+    res.json(cards);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to fetch cards" });
+  }
+});
 
+// api endpoint to handle ADDING CARDS
+app.post("/api/decks/:userID/:deckName/cards", async (req, res) => {
+  try {
+    const userID = req.params.userID;
+    const deckName = req.params.deckName;
+    const answer = req.body.answer;
+    const question = req.body.question;
+    let image = req.body.image;
+    if (image === undefined) {
+      image = "";
+    }
+    const docRef = await admin
+      .firestore()
+      .collection("users")
+      .doc(userID)
+      .collection("decks")
+      .doc(deckName)
+      .collection("cards")
+      .add({
+        answer: answer,
+        question: question,
+        image: image,
+      });
+    res.json({
+      id: docRef.id,
+      answer: answer,
+      question: question,
+      image: image,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to add card" });
+  }
+});
+
+// api endpoint to handle DELETING CARDS
+app.delete("/api/decks/:userID/:deckID/cards/:flashID", async (req, res) => {
+  try {
+    const userID = req.params.userID;
+    const deckID = req.params.deckID;
+    const flashID = req.params.flashID;
+
+    const docRef = await admin
+      .firestore()
+      .collection("users")
+      .doc(userID)
+      .collection("decks")
+      .doc(deckID)
+      .collection("cards")
+      .doc(flashID)
+      .delete();
+    res.json({ id: docRef.id });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to delete card" });
+  }
+});
+
+// api endpoint to handle changeing grades
+app.put("/api/decks/:userID/:deckID/cards/:flashID", async (req, res) => {
+  try {
+    const userID = req.params.userID;
+    const deckID = req.params.deckID;
+    const flashID = req.params.flashID;
+    const grade = req.body.grade;
+    const docRef = await admin
+      .firestore()
+      .collection("users")
+      .doc(userID)
+      .collection("decks")
+      .doc(deckID)
+      .collection("cards")
+      .doc(flashID)
+      .update({
+        grade: grade,
+      });
+
+    res.json({ id: docRef.id });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to update grade" });
+  }
+});
+// api endpoint to handle deleting decks
+app.delete("/api/decks/:userID/:deckID", async (req, res) => {
+  try {
+    const userID = req.params.userID;
+    const deckID = req.params.deckID;
+    const docRef = await admin
+      .firestore()
+      .collection("users")
+      .doc(userID)
+      .collection("decks")
+      .doc(deckID)
+      .delete();
+    res.json({ id: docRef.id });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to delete deck" });
+  }
+});
+
+//api endpoint to handle editing cards
+app.put("/api/decks/:userID/:deckID/cards/:flashID/edit", async (req, res) => {
+  try {
+    const userID = req.params.userID;
+    const deckID = req.params.deckID;
+    const flashID = req.params.flashID;
+    const answer = req.body.answer;
+    const question = req.body.question;
+    const docRef = await admin
+      .firestore()
+      .collection("users")
+      .doc(userID)
+      .collection("decks")
+      .doc(deckID)
+      .collection("cards")
+      .doc(flashID)
+      .update({
+        answer: answer,
+        question: question,
+      });
+    res.json({ id: docRef.id });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to update card" });
+  }
+});
 
 const PORT = 3001;
 

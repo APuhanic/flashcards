@@ -7,8 +7,8 @@ export default function EditCardModal({
   flashcard,
   handleEditCard,
 }) {
-  const [question, setQuestion] = useState();
-  const [answer, setAnswer] = useState();
+  const [question, setQuestion] = useState(flashcard.question);
+  const [answer, setAnswer] = useState(flashcard.answer);
 
   return (
     <>

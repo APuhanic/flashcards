@@ -8,30 +8,30 @@ import StudyCard from "../components/StudyCard";
 export default function Studying() {
   const [flashcards, setFlashcards] = useState([]);
   const [currentCard, setCurrentCard] = useState(0);
-  const currentUser = useAuth();
+  const {currentUser} = useAuth();
   const deck = useParams();
   const shuffledFlashcards = flashcards.sort(() => Math.random() - 0.5);
-
   const StudyCards = shuffledFlashcards.map((flashcard) => {
     return <StudyCard flashcard={flashcard} />;
   });
 
   useEffect(() => {
     if (currentUser) {
-      getCards(deck.id).then((res) => {
+      getCards(currentUser.uid,deck.id).then((res) => {
         setFlashcards(res);
+
       });
     }
   }, [currentUser]);
 
   function updateCards() {
-    getCards(deck.id).then((res) => {
+    getCards(currentUser.uid,deck.id).then((res) => {
       setFlashcards(res);
     });
   }
 
   function nextQuestion(event, param) {
-    changeGrade(deck.id, flashcards[currentCard], param);
+    changeGrade(currentUser.uid,deck.id, flashcards[currentCard], param);
     updateCards();
     const nextCard = currentCard + 1;
     if (nextCard < StudyCards.length) {
